@@ -1,0 +1,111 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Harl.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: seruff <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/18 13:45:05 by seruff            #+#    #+#             */
+/*   Updated: 2025/09/18 15:15:44 by seruff           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "Harl.hpp"
+
+Harl::Harl(std::string level)
+{
+	this->level = level;
+	std::cout << "Angriness: " << level << std::endl;
+}
+
+void	Harl::complain(std::string level)
+{
+	typedef void (Harl::*Action)();
+        Action	action[4] = {&Harl::debug(), &Harl::info, &Harl::warning, &Harl::error};
+
+	
+	//void	(*table[4])(void) = {&Harl::debug, &Harl::info, &Harl::warning, &Harl::error};
+	std::string	arr[4] = {"DEBUG", "INFO", "WARNING", "ERROR"};
+
+	for (int i = 0; i < 4; i++)
+	{
+		if (arr[i] == level)
+			(this->*action[i])();
+	}
+	
+}
+void	Harl::debug(void) const
+{
+	std::cout << "I love having chocolate cream on french fries" << std::endl;
+}
+
+void	Harl::info(void) const
+{
+	std::cout << "I don't understand why people aren't used to travel on their hand"
+		<< " Instead of their foot.. so boring" << std::endl;
+}
+
+void	Harl::warning(void) const
+{
+	std::cout << "I think I deserve some bacon for free. I've been"
+		<< "coming for years, whereas you started working here yesterday" << std::endl;
+}
+
+void	Harl::error(void) const
+{
+	std::cout << "This is unacceptable ! BLABLABLABLA" << std::endl;
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: seruff <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/18 13:43:35 by seruff            #+#    #+#             */
+/*   Updated: 2025/09/18 13:51:57 by seruff           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "Harl.hpp"
+
+int	main()
+{
+	Harl	Carl("WARNING");
+
+	
+	return (0);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Harl.hpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: seruff <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/18 13:44:19 by seruff            #+#    #+#             */
+/*   Updated: 2025/09/18 14:54:49 by seruff           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef HARL_HPP
+# define HARL_HPP
+
+# include <iostream>
+# include <string.h>
+
+class	Harl
+{
+	private:
+		std::string	level;
+		void	debug(void) const;
+		void	info(void) const;
+		void	warning(void) const;
+		void	error(void) const;
+	public:
+		Harl(std::string level);
+		void	complain(std::string level);
+};
+
+
+#endif //HARL_HPP
