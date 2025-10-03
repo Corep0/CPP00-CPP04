@@ -3,11 +3,17 @@ CC = c++
 CF = -Wall -Werror -Wextra -std=c++98
 
 # Program
-PROG = clap 
+NAME = ClapTrap 
+
+# Header
+INC = -I include/.
 
 # Sources
-SRC = ClapTrap.cpp	\
-      main.cpp
+SRCD = src/
+SRC =	$(SRCD)ClapTrap.cpp 	\
+	$(SRCD)main.cpp
+
+OBJ = $(SRC:.cpp=.o)
 
 # Color
 GC = \033[0;32m
@@ -15,16 +21,23 @@ RC = \033[0;31m
 BC = \033[0;34m
 ENDC = \033[0m
 
-all: 		$(PROG)
+all: 		$(NAME)
 
-$(PROG):	$(SRC)
-		@echo "$(GC) Compiling $(PROG) program..$(ENDC)"
-		$(CC) $(CF) -o $(PROG) $(SRC)
-		@echo "$(GC) $(PROG) ready to be used $(ENDC)"
+$(NAME):	$(OBJ)
+		@echo "$(GC) Compiling $(NAME) program..$(ENDC)"
+		$(CC) $(CF) $(INC) -o $(NAME) $(OBJ)
+		@echo "$(GC) $(NAME) ready to be used $(ENDC)"
+
+%.o: %.cpp
+		$(CC) $(CF) $(INC) -c $< -o $@
 
 clean:	
-		@rm -f $(PROG)
+		@rm -f $(OBJ)
 
-re:		clean all
+fclean:		clean
+		@rm -f $(NAME)
 
-.PHONY:		re clean all
+re:		fclean all
+
+.PHONY:		re fclean clean all
+
